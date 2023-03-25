@@ -1,0 +1,63 @@
+{% extends 'service/base_service.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container-fluid">
+<div class="row">
+  <div class="col-lg-6 col-md-12 ">
+    <h1 class="display-3">{{ title }}</h1>
+  </div>
+  <div class="col-lg-6 align-self-center mb-2 mt-2">
+    <a class="btn btn-success" href="{% url 'add_request' %}">Подать заявку на обслуживание</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 col-md-12 ">
+    <h2 class="alert alert-primary">{{compressor.compressor_model.compressor_lable.name}} {{compressor.compressor_model.name}}</h2>
+  </div>
+  <div class="col-lg-6 align-self-center">
+    <h2 class="alert alert-primary" role="alert">Зав.№: {{compressor.api}}</h2>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link" aria-current="true" href="{% url 'compressor' compressor.id %}">Компрессор</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'statistic' compressor.id %}">Статистика</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'history' compressor.id %}">Истории</a>
+      </li>
+    </ul>
+  </div>
+
+<form method="post">
+	{% csrf_token %}
+	<input type="hidden" name="all_ok">
+	<input type="submit" value="Все узлы исправны" class="btn btn-success w-100">
+</form>
+
+<button class="btn btn-danger" onclick="(document.getElementById('inspection-form').style.display='block')">Имеются проблемы</button>
+
+<div id="inspection-form" style="display:none">
+  <form method="post">
+	{% csrf_token %}
+
+	<div>{{ form.non_field_errors }}</div> <!-- Коллекция отображения ошибок, не связанных с полями -->
+
+	{{ form|crispy }}
+	<button type="submit" class="btn btn-success mt-2 w-100">Отправить</button>
+  </form>
+</div>
+
+</div>
+</div>
+
+{% endblock %}

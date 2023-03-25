@@ -1,0 +1,4 @@
+<option value="">---</option>
+{% for compressor in compressors %}
+<option value="{{ compressor.id }}">{{compressor.compressor_model.compressor_lable}} {{compressor.compressor_model.name}} №{{ compressor.api }}</option>
+{% endfor %}

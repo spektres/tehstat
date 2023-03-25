@@ -1,0 +1,53 @@
+{% extends 'desktop/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1 class="display-3 text-center">{{ title }}</h1>
+
+<div class="alert alert-info text-center m-0">
+    <strong>Выберите форму заявки</strong>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 col-md-12 text-center p-1">
+    <button id="button_clearly_form" class="btn btn-success w-100">Перейти к точной форме</button>
+    <div id="alert_clearly_form" class="alert alert-info m-0">
+      <strong>Точная форма рекомендуется для заполнения обслуживающим\ремонтным песоналом или если неисправные узлы известны.</strong>
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-md-12 text-center p-1">
+    <button id="button_form" class="btn btn-success w-100">Перейти к свободной форме</button>
+    <div id="alert_form" class="alert alert-info m-0">
+      <strong>Свободная форма рекомендуется для заполнения диспетчером\заказчиком или если неисправные узлы неизвестны.</strong>
+    </div>
+  </div>
+</div>
+
+  <form method="post" id="requestForm" data-compressors-url="{% url 'ajax_load_compressors' %}" novalidate>
+    {% csrf_token %}
+      {{ form|crispy }}
+    <button type="submit" id="push" class="btn btn-success w-100">Создать заявку</button>
+  </form>
+
+  <script>
+    $("#id_room").change(function () {
+      var url = $("#requestForm").attr("data-compressors-url");  // get the url of the `load_cities` view
+      var roomId = $(this).val();  // get the selected country ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'room': roomId       // add the country id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_cities` view function
+          $("#id_compressor").html(data);  // replace the contents of the city input with the data that came from the server
+        }
+      });
+
+    });
+  </script>
+
+{% endblock %}

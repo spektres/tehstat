@@ -1,0 +1,81 @@
+{% extends 'desktop/base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+<div class="row">
+    <div class="col-lg-12 col-md-12 ">
+      <h1 class="display-3 text-center">{{ title }}</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-12 text-center">
+        <h2 class="alert alert-primary">{{compressor.compressor_model.compressor_lable.name}} {{compressor.compressor_model.name}}</h2>
+        <h2 class="alert alert-primary" role="alert">Зав.№: {{compressor.api}}</h2>
+      </div>
+      <div class="col-lg-6 align-self-center text-center">
+        <a class="btn btn-success w-100 m-1" href="{% url 'add_request_service' compressor.id %}">Подать заявку на обслуживание</a><br>
+        <a class="btn btn-success w-100 m-1" href="{% url 'add_inspection' compressor.id %}">Произвести осмотр</a>
+      </div>
+    </div>
+  </div>
+
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link" aria-current="true" href="{% url 'compressor' compressor.id %}">Компрессор</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'statistic' compressor.id %}">Статистика</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'history' compressor.id %}">Истории</a>
+      </li>
+    </ul>
+  </div>
+
+<div class="alert alert-info m-0">
+    <strong>Истории заявок</strong> - справочная информация. Реальное состояние в <a class="btn btn-outline-success" href="{% url 'compressor' compressor.id %}">Компрессор</a>
+</div>
+
+<div class="row">
+  <div class="col-lg-4">
+    <h4 class="alert alert-primary">Общая иформация</h4>
+    <p>Статус заявки</p>
+
+    <p class="alert alert-info"> 
+      {% if posts.status %}
+        <b>Открыта</b>
+      {% else %}
+        <b>Закрыта</b>
+      {% endif %}
+    </p>
+
+    {% if posts.status %}
+    <a class="btn btn-success w-100" href="{% url 'request_shut' posts.compressor.id posts.id %}">Закрыть заявку</a>
+    {% endif %}
+
+    <p>Помещение</p>
+    <p>{{ posts.room.name }}</p>
+    <p>Компрессор</p>
+    <p>{{compressor.compressor_model.compressor_lable.name}} {{compressor.compressor_model.name}} № {{compressor.api}}</p>
+    <p>Заявка создана</p>
+    <p>{{ posts.created_date|date:"G:i от d.m.Y" }}</p>
+    <p>Оформил заявку</p>
+    <p>{{ posts.author }}</p>
+  </div>
+  <div class="col-lg-4">
+    <h4 class="alert alert-primary">Возникшие проблемы</h4>
+    <p>fthdfthrtrgdg erty rh erthr h er rt rtjh rert t yjrergerg e ge gegegioueuio geior ioegeio gioe gioeiu gier gieiu gieie hgiheirgie giei ghieegi eio gie giei wiierhg ieighihg e</p>
+  </div>
+  <div class="col-lg-4">
+    <h4 class="alert alert-primary">Решение проблем</h4>
+    <p>fthdfthrtrgdg erty rh erthr h er rt rtjh rert t yjrergerg e ge gegegioueuio geior ioegeio gioe gioeiu gier gieiu gieie hgiheirgie giei ghieegi eio gie giei wiierhg ieighihg e</p>
+  </div>
+</div>
+
+
+
+</div>
+{% endblock %}

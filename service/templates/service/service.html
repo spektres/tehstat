@@ -1,0 +1,43 @@
+{% extends 'desktop/base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+<div class="row">
+  <div class="col-lg-6 col-md-12 ">
+    <h1 class="display-3">{{ title }}</h1>
+  </div>
+  <div class="col-lg-6 align-self-center mb-2 mt-2">
+    <a class="btn btn-success" href="{% url 'add_request' %}">Подать заявку на обслуживание</a>
+  </div>
+</div>
+
+{% regroup compressors by room as room_list %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Компрессор</th>
+      <th scope="col">Заводской номер/API</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for room in room_list %}
+      <tr class="table-primary">
+        <td colspan="3">{{ room.grouper }}</td>
+      </tr>
+      {% for item in room.list %}
+      <tr>
+        <td>{{item.compressor_model.compressor_lable.name}} {{item.compressor_model}}</td>
+        <td>{{item.api}}</td>
+        <td><a href="{{ item.get_absolute_url }}">Войти</a></td>
+      </tr>
+      {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+
+{% endblock %}

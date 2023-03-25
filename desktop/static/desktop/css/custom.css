@@ -1,0 +1,106 @@
+/*Оформление бургера меню*/
+.navbar-toggler{
+	border: 0px;
+}
+
+.navbar-burger{
+	border: 0px;
+	width: 50px;
+	height: 40px;
+	display: block;
+	position: relative;
+}
+.navbar-burger span{
+	border: 1px solid green;
+	position: absolute;
+	background-color: #fff;
+	left: 0;
+	width: 100%;
+	height: 5px;
+	top: 17px;
+	transition: all 0.65s ease 0s;
+}
+.navbar-burger:before,
+.navbar-burger:after{
+	content: '';
+	background-color: #fff;
+	position: absolute;
+	width: 100%;
+	height: 5px;
+	left: 0;
+}
+.navbar-burger:before{
+	top: 0;
+	transition: all 0.65s ease 0s;
+	border: 1px solid green;
+}
+.navbar-burger:after{
+	bottom: 0;
+	transition: all 0.65s ease 0s;
+	border: 1px solid green;
+}
+
+.navbar-burger.collapsed:before{
+	border: 1px solid green;
+	transform: rotate(45deg);
+	top: 17px;
+	transition: all 0.65s ease 0s;
+}
+.navbar-burger.collapsed:after{
+	border: 1px solid green;
+	transform: rotate(-45deg);
+	bottom: 17px;
+	transition: all 0.65s ease 0s;
+}
+.navbar-burger.collapsed span{
+	transform: scale(0);
+}
+
+/* Форма подачи заявки */
+#div_id_mehanical_assembly_text{
+	display: none;
+}
+
+#div_id_mehanical_assembly_text.show{
+	display: block;
+}
+
+#div_id_electrical_assembly_text{
+	display: none;
+}
+
+#div_id_electrical_assembly_text.show{
+	display: block;
+}
+
+#div_id_oil_assembly_text{
+	display: none;
+}
+
+#div_id_oil_assembly_text.show{
+	display: block;
+}
+
+#div_id_air_assembly_text{
+	display: none;
+}
+
+#div_id_air_assembly_text.show{
+	display: block;
+}
+
+#div_id_another_text{
+	display: none;
+}
+
+#div_id_another_text.show{
+	display: block;
+}
+
+#div_id_open_text{
+	display: none;
+}
+
+#div_id_open_text.show{
+	display: block;
+}

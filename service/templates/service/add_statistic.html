@@ -1,0 +1,18 @@
+{% extends 'desktop/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h1 class="display-3">{{ title }}</h1>
+
+<form action="" method="post">
+	{% csrf_token %}
+
+	<div>{{ form.non_field_errors }}</div> <!-- Коллекция отображения ошибок, не связанных с полями -->
+
+	{{ form|crispy }}
+	<button type="submit" class="btn btn-success mt-2">Обновить стратистику</button>
+</form>
+
+{% endblock %}

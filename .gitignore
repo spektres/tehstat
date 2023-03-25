@@ -1,0 +1,6 @@
+local_settings.py
+prod_settings.py
+
+media/*
+
+logs/debug.txt
