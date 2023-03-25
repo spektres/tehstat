@@ -1,10 +1,10 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone
 
 from django.contrib.auth.models import User
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -111,18 +111,23 @@ def history_request_post(request, id="", id_post=""):
     return render(request, 'service/history_request_post.html', context=context)
 
 
-def request_shut(request, id="", id_post=""):
-    posts = History_request.objects.get(id = id_post)
-    compressor = Compressor.objects.get(id= posts.compressor_id)
+"""class RequestShut(UpdateView):
+    model = History_request
+    template_name = 'service/request_shut.html'
+    success_url = reverse_lazy('desktop')
 
-    context = {
-        'posts': posts,
-        'compressor': compressor,
-        'menu': menu,
-        'title': 'Закрыть заявку'
-    }
+    def form_valid(self, form):
+        fields = form.save(commit=False)
+        fields.status = False
+        fields.save()
+        return super().form_valid(form)
 
-    return render(request, 'service/request_shut.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['compressor'] = self.request.GET.get(pk)
+        context['menu'] = menu
+        context['title'] = 'Закрытие заявки'
+        return context"""
 
 
 def history_inspection(request, id=""):
@@ -191,7 +196,7 @@ def statistic(request, id=""):
         context['title'] = 'Обновить статистику'
         return context"""
 
-
+@login_required
 def add_statistic(request, id=""):
     #Страница добавления записи статистики компрессора
     if request.method =='POST':
@@ -213,6 +218,23 @@ def add_statistic(request, id=""):
     }
 
     return render(request, 'service/add_statistic.html', context=context)
+
+
+def request_shut(request, id="", id_post=""):
+    posts = History_request.objects.get(id = id_post)
+    compressor = Compressor.objects.get(id= posts.compressor_id)
+
+    form = ShutRequestService()
+
+    context = {
+        'posts': posts,
+        'form': form,
+        'compressor': compressor,
+        'menu': menu,
+        'title': 'Закрыть заявку',
+    }
+
+    return render(request, 'service/request_shut.html', context=context)
 
 
 def add_inspection(request, id=""):
@@ -256,26 +278,6 @@ def add_inspection(request, id=""):
     }
 
     return render(request, 'service/add_inspection.html', context=context)
-
-# НЕОБХОДИМО ЗАТАТЬ АЙДИ ЗАЯВКИ!!!!
-#Создание заявки (Выполнить декорацию!!!!)
-class AddRequestService(DataMixin, CreateView):
-    model = History_request
-    form_class = AddRequestService
-    template_name = 'service/request_service_form.html'
-    success_url = reverse_lazy('desktop')
-    
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.status = True
-        form.save()
-        return super(AddRequest, self).form_valid(form)
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title='Подать заявку')
-        context = dict(list(context.items()) + list(c_def.items()))
-        return context
 
 
 """class AddInspectionService(DataMixin, CreateView):

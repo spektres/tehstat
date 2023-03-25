@@ -7,10 +7,13 @@ class AddStatisticForm(forms.ModelForm):
         model = Statistic
         fields =  ['opening_hours', 'number_of_starts', 'load_relay', 'fan_starts', 'accumulated_volume', 'regulator_hours']
 
-class AddRequestService(forms.ModelForm):
+class ShutRequestService(forms.ModelForm):
     class Meta:
         model = History_request
-        fields = ['text_open',]
+        fields = ('room', 'compressor', 'mehanical_assembly', 'mehanical_assembly_text', 'mehanical_assembly_shut', 'electrical_assembly', 'electrical_assembly_text', 'oil_assembly', 'oil_assembly_text', 'air_assembly', 'air_assembly_text', 'another', 'another_text', 'text_open')
+        """widgets = {
+                                    'mehanical_assembly': forms.TextInput(attrs={'class': 'add_mehanical_assembly'})
+                                }"""
 
 """class AddInspectionForm(forms.Form):
     #all_ok = forms.BooleanField(label='Все в норме')

@@ -14,7 +14,7 @@
         <h2 class="alert alert-primary" role="alert">Зав.№: {{compressor.api}}</h2>
       </div>
       <div class="col-lg-6 align-self-center text-center">
-        <a class="btn btn-success w-100 m-1" href="{% url 'add_request_service' compressor.id %}">Подать заявку на обслуживание</a><br>
+        <a class="btn btn-success w-100 m-1" href="{% url 'add_request' %}">Подать заявку на обслуживание</a><br>
         <a class="btn btn-success w-100 m-1" href="{% url 'add_inspection' compressor.id %}">Произвести осмотр</a>
       </div>
     </div>

@@ -14,7 +14,7 @@
         <h2 class="alert alert-primary" role="alert">Зав.№: {{compressor.api}}</h2>
       </div>
       <div class="col-lg-6 align-self-center text-center">
-        <a class="btn btn-success w-100 m-1" href="{% url 'add_request_service' compressor.id %}">Подать заявку на обслуживание</a><br>
+        <a class="btn btn-success w-100 m-1" href="{% url 'add_request' %}">Подать заявку на обслуживание</a><br>
         <a class="btn btn-success w-100 m-1" href="{% url 'add_inspection' compressor.id %}">Произвести осмотр</a>
       </div>
     </div>
@@ -52,10 +52,6 @@
       {% endif %}
     </p>
 
-    {% if posts.status %}
-    <a class="btn btn-success w-100" href="{% url 'request_shut' posts.compressor.id posts.id %}">Закрыть заявку</a>
-    {% endif %}
-
     <p>Помещение</p>
     <p>{{ posts.room.name }}</p>
     <p>Компрессор</p>
@@ -65,17 +61,35 @@
     <p>Оформил заявку</p>
     <p>{{ posts.author }}</p>
   </div>
+
+  {% if posts.status %}
+  <div class="col-lg-8">
+  {% else %}
   <div class="col-lg-4">
+  {% endif %}
     <h4 class="alert alert-primary">Возникшие проблемы</h4>
-    <p>fthdfthrtrgdg erty rh erthr h er rt rtjh rert t yjrergerg e ge gegegioueuio geior ioegeio gioe gioeiu gier gieiu gieie hgiheirgie giei ghieegi eio gie giei wiierhg ieighihg e</p>
+    
+    {% if posts.text_open %}
+    <p>{{ posts.text_open }}</p>
+    {% else %}
+    {% if posts.mehanical_assembly_text %}<p>{{ posts.mehanical_assembly_text }}</p>{% endif %}
+    {% if posts.electrical_assembly_text %}<p>{{ posts.electrical_assembly_text }}</p>{% endif %}
+    {% if posts.oil_assembly_text %}<p>{{ posts.oil_assembly_text }}</p>{% endif %}
+    {% if posts.air_assembly_text %}<p>{{ posts.air_assembly_text }}</p>{% endif %}
+    {% if posts.another_text %}<p>{{ posts.another_text }}</p>{% endif %}
+    {% endif %}
+    
+    {% if posts.status %}
+    <a class="btn btn-success w-100" href="{% url 'request_shut' posts.compressor.id posts.id %}">Закрыть заявку</a>
+    {% endif %}
   </div>
+  {% if not posts.status %}
   <div class="col-lg-4">
     <h4 class="alert alert-primary">Решение проблем</h4>
-    <p>fthdfthrtrgdg erty rh erthr h er rt rtjh rert t yjrergerg e ge gegegioueuio geior ioegeio gioe gioeiu gier gieiu gieie hgiheirgie giei ghieegi eio gie giei wiierhg ieighihg e</p>
+    <p>{{ text_close }}</p>
   </div>
-</div>
+  {% endif %}
 
-
-
+  </div>
 </div>
 {% endblock %}

@@ -14,7 +14,7 @@
         <h2 class="alert alert-primary" role="alert">Зав.№: {{compressor.api}}</h2>
       </div>
       <div class="col-lg-6 align-self-center text-center">
-        <a class="btn btn-success w-100 m-1" href="{% url 'add_request_service' compressor.id %}">Подать заявку на обслуживание</a><br>
+        <a class="btn btn-success w-100 m-1" href="{% url 'add_request' %}">Подать заявку на обслуживание</a><br>
         <a class="btn btn-success w-100 m-1" href="{% url 'add_inspection' compressor.id %}">Произвести осмотр</a>
       </div>
     </div>
@@ -45,7 +45,7 @@
 	  </div>
 	  <div class="row">
 	    <div class="col-5 d-flex align-items-center">
-	  	  <img src="/static/service/images/service-req.png" class="card-img-top">
+	  	  <img src="/static/service/images/wrench-adjustable-circle.svg" class="card-img-top">
 	    </div>
         <div class="col-7">
       	  <div class="card-body p-0">
@@ -75,7 +75,7 @@
 	  </div>
 	  <div class="row">
 	    <div class="col-5 d-flex align-items-center">
-	  	  <img src="/static/service/images/service-ward.png" class="card-img-top">
+	  	  <img src="/static/service/images/wrench-adjustable-circle.svg" class="card-img-top">
 	    </div>
         <div class="col-7">
       	  <div class="card-body p-0">
@@ -105,7 +105,7 @@
 	  </div>
 	  <div class="row">
 	    <div class="col-5 d-flex align-items-center">
-	  	  <img src="/static/service/images/service-to.png" class="card-img-top">
+	  	  <img src="/static/service/images/wrench-adjustable-circle.svg" class="card-img-top">
 	    </div>
         <div class="col-7">
       	  <div class="card-body p-0">
@@ -135,7 +135,7 @@
 	  </div>
 	  <div class="row">
 	    <div class="col-5 d-flex align-items-center">
-	  	  <img src="/static/service/images/service-rem.png" class="card-img-top">
+	  	  <img src="/static/service/images/wrench-adjustable-circle.svg" class="card-img-top">
 	    </div>
         <div class="col-7">
       	  <div class="card-body p-0">
@@ -156,33 +156,6 @@
     </div>
   </div>
 
-  <!--div class="card-body p-0"> ЭТОТ РАЗДЕЛ УЙДЕТ В ИСТОРИЮ ЗАЯВОК
-	{% for post in posts %}
-	<div class="accordion" id="accordionBasic">
-	  <div class="accordion-item">
-	    <h2 class="accordion-header" id="headingOne">
-	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne{{ post.id }}" aria-expanded="true" aria-controls="collapseOne{{ post.id }}">Запрос в {{ post.created_date|date:"G:i от d.m.Y" }}</button>
-	    </h2>
-	    <div id="collapseOne{{ post.id }}" class="accordion-collapse collapse hidden" aria-labelledby="headingOne" data-bs-parent="#accordionBasic">
-	      <div class="accordion-body alert alert-warning">
-	        <p>Помещение - {{ post.room.name }}</p>
-	        <p>Оборудование - {{ post.compressor.compressor_model.compressor_lable.name }} 
-	          {{ post.compressor.compressor_model.name }}</p>
-	        <p class="badge bg-warning text-dark">Описание проблемы</p>
-	        <p>{{ post.text_open }}</p>
-	      </div>
-	      <div class="accordion-body alert alert-success">
-            <p class="badge bg-warning text-dark">Решение проблемы</p>
-            <p>{{ post.text_close }}</p>
-            <a href="" class="btn btn-success">Перейти к заявке</a>
-          </div>
-	    </div>
-	  </div>
-	  {% empty %}
-	  <p>Заявок еще не было.</p>
-	</div>
-	{% endfor %}
-  </div-->
 </div>
 
 </div>
