@@ -16,7 +16,9 @@ from .utils import *
 from service.models import * 
 from .forms import *
 
+
 #Главная страница рабочего стола
+@login_required
 def desktop(request):
     requests_true = History_request.objects.filter(status=True).order_by('-created_date')
     requests_false = History_request.objects.filter(status=False).order_by('-created_date')
@@ -30,8 +32,9 @@ def desktop(request):
 
     return render(request, 'desktop/desktop.html', context=context)
 
+
 #Регистрация пользователя
-class RegisterUser(DataMixin, CreateView):
+class RegisterUser(LoginRequiredMixin, DataMixin, CreateView):
     form_class = RegisterUserForm
     template_name = 'desktop/register.html'
     success_url = reverse_lazy('service')
@@ -48,6 +51,7 @@ class RegisterUser(DataMixin, CreateView):
         login(self.request, user)
         return redirect('service')
 		
+
 #Авторизация
 class LoginUser(DataMixin, LoginView):
     form_class = LoginUserForm
@@ -62,13 +66,16 @@ class LoginUser(DataMixin, LoginView):
     def get_success_url(self):
     	return reverse_lazy('service')
 
+
 #Выход из аккаунта
+@login_required
 def logout_user(request):
     logout(request)
     return redirect('login')
 
+
 #Создание заявки (Выполнить декорацию!!!!)
-class AddRequest(DataMixin, CreateView):
+class AddRequest(LoginRequiredMixin, DataMixin, CreateView):
     model = History_request
     form_class = RequestForm
     template_name = 'desktop/request_form.html'
@@ -85,6 +92,7 @@ class AddRequest(DataMixin, CreateView):
         c_def = self.get_user_context(title='Подать заявку')
         context = dict(list(context.items()) + list(c_def.items()))
         return context
+    
 #Подгрузка списка компрессоров для заявок
 def load_compressors(request):
     room_id = request.GET.get('room')

@@ -68,6 +68,8 @@ class CompressorDetail(LoginRequiredMixin, DetailView):
 
     return render(request, 'service/compressor.html', context=context)"""
 
+
+@login_required
 def history(request, id=""):
     #Страница истории компрессора
     posts = History_request.objects.filter(compressor = id)
@@ -82,6 +84,8 @@ def history(request, id=""):
 
     return render(request, 'service/history.html', context=context)
 
+
+@login_required
 def history_request(request, id=""):
     #Страница истории заявок компрессора
     posts = History_request.objects.filter(compressor = id).order_by('-created_date')
@@ -97,6 +101,7 @@ def history_request(request, id=""):
     return render(request, 'service/history_request.html', context=context)
 
 
+@login_required
 def history_request_post(request, id="", id_post=""):
     posts = History_request.objects.get(id = id_post)
     compressor = Compressor.objects.get(id = posts.compressor_id)
@@ -130,6 +135,7 @@ def history_request_post(request, id="", id_post=""):
         return context"""
 
 
+@login_required
 def history_inspection(request, id=""):
     #Страница истории осмотров компрессора
     posts = History_inspection.objects.filter(compressor = id).order_by('-created_date')
@@ -145,6 +151,7 @@ def history_inspection(request, id=""):
     return render(request, 'service/history_inspection.html', context=context)
 
 
+@login_required
 def history_inspection_post(request, id="", id_post=""):
     #Страница истории осмотров компрессора
     """posts = History_inspection.objects.filter(compressor = id).order_by('-created_date')
@@ -165,7 +172,7 @@ def history_inspection_post(request, id="", id_post=""):
     return render(request, 'service/add_inspection.html')#, context=context)"""
 
 
-
+@login_required
 def statistic(request, id=""):
     #Страница статистики компрессора
     posts = Statistic.objects.filter(compressor=id)
@@ -196,6 +203,7 @@ def statistic(request, id=""):
         context['title'] = 'Обновить статистику'
         return context"""
 
+
 @login_required
 def add_statistic(request, id=""):
     #Страница добавления записи статистики компрессора
@@ -220,6 +228,7 @@ def add_statistic(request, id=""):
     return render(request, 'service/add_statistic.html', context=context)
 
 
+@login_required
 def request_shut(request, id="", id_post=""):
     posts = History_request.objects.get(id = id_post)
     compressor = Compressor.objects.get(id= posts.compressor_id)
@@ -237,6 +246,7 @@ def request_shut(request, id="", id_post=""):
     return render(request, 'service/request_shut.html', context=context)
 
 
+@login_required
 def add_inspection(request, id=""):
     #Страница добавления записи истории осмотра компрессора
     compressor = Compressor.objects.get(id = id)
@@ -298,7 +308,7 @@ def add_inspection(request, id=""):
         context = dict(list(context.items()) + list(c_def.items()))
         return context"""
 
-
+@login_required
 def inventory(request):
 	#Страница инвентаря
     return HttpResponse('Страница инвентаря')
