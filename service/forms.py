@@ -5,7 +5,7 @@ from desktop.models import *
 class AddStatisticForm(forms.ModelForm):
     class Meta:
         model = Statistic
-        fields =  ['opening_hours', 'number_of_starts', 'load_relay', 'fan_starts', 'accumulated_volume', 'regulator_hours']
+        fields =  ['opening_hours']
 
 class ShutRequestService(forms.ModelForm):
     class Meta:

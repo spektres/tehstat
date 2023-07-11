@@ -10,11 +10,6 @@ class Statistic(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     compressor = models.ForeignKey('desktop.Compressor', on_delete=models.PROTECT)
     opening_hours = models.IntegerField()
-    number_of_starts = models.IntegerField()
-    load_relay = models.IntegerField()
-    fan_starts = models.IntegerField()
-    accumulated_volume = models.IntegerField()
-    regulator_hours = models.IntegerField()
     created_date = models.DateTimeField(default=timezone.now)
 
     def publish(self):

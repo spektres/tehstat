@@ -25,8 +25,32 @@
         <p>Помещение - {{ request.room.name }}</p>
         <p>Оборудование - {{ request.compressor.compressor_model.compressor_lable.name }} 
           {{ request.compressor.compressor_model.name }}</p>
+
+        {% if request.text_open %}
         <p class="badge bg-warning text-dark">Описание проблемы</p>
         <p>{{ request.text_open }}</p>
+        {% else %}
+        {% if request.mehanical_assembly_text %}
+        <p class="badge bg-warning text-dark">Механический узел</p>
+        <p>{{ request.mehanical_assembly_text }}</p>
+        {% endif %}
+        {% if request.electrical_assembly_text %}
+        <p class="badge bg-warning text-dark">Электрический узел</p>
+        <p>{{ request.electrical_assembly_text }}</p>
+        {% endif %}
+        {% if request.oil_assembly_text %}
+        <p class="badge bg-warning text-dark">Масляная система</p>
+        <p>{{ request.oil_assembly_text }}</p>
+        {% endif %}
+        {% if request.air_assembly_text %}
+        <p class="badge bg-warning text-dark">Воздушая система</p>
+        <p>{{ request.air_assembly_text }}</p>
+        {% endif %}
+        {% if request.another_text %}
+        <p class="badge bg-warning text-dark">Другая проблема</p>
+        <p>{{ request.another_text }}</p>
+        {% endif %}
+        {% endif %}
         <a href="{% url 'history_request_post' request.compressor.id request.id %}" class="btn btn-success">Перейти к заявке</a>
       </div>
     </div>
